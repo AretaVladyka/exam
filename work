@@ -1,0 +1,44 @@
+import tkinter as tk
+import requests
+from bs4 import BeautifulSoup
+info_all = ''
+window = tk.Tk()
+window.title("Пошук")
+window.geometry("490x250")
+
+  
+label = tk.Label(
+     text="Що ви шукаєте?",
+     fg="white",
+     bg="pink",
+     width=70,
+     height=5
+)
+label.pack()
+
+entry = tk.Entry(width=50)
+entry.pack()
+def insert():
+  pass
+  
+def search():
+  global info_all
+  q = entry.get()
+  SITE_ADRESS = 'https://www.google.com/search?q=' + q
+  html = requests.get(SITE_ADRESS).text
+  
+  content = BeautifulSoup(html, 'html.parser')
+  
+  elements = content.find_all('h3')
+  
+
+
+for element in elements:
+  name = element.get_text()
+  print(name)
+  info_all += f' {name}\n'    
+
+
+window.mainloop()
+  
+
